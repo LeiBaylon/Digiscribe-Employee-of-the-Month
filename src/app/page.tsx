@@ -4,7 +4,13 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { Avatar } from "@/components/ui/avatar";
 import { CategoryBadge, StatusBadge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { nominations, leaderboard, stats, monthlyWinners, analyticsData } from "@/lib/data";
+import {
+  nominations,
+  leaderboard,
+  stats,
+  monthlyWinners,
+  analyticsData,
+} from "@/lib/data";
 import { formatRelativeTime } from "@/lib/utils";
 import { motion } from "framer-motion";
 import {
@@ -24,13 +30,7 @@ import {
   BarChart3,
 } from "lucide-react";
 import Link from "next/link";
-import {
-  AreaChart,
-  Area,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-} from "recharts";
+import { AreaChart, Area, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
 const container = {
   hidden: { opacity: 0 },
@@ -42,7 +42,11 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as const } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as const },
+  },
 };
 
 function StatCard({
@@ -94,7 +98,9 @@ function NominationQueue() {
       <GlassCard noPadding>
         <div className="p-6 pb-3 flex items-center justify-between">
           <div>
-            <h2 className="text-base font-semibold text-foreground">Nomination Queue</h2>
+            <h2 className="text-base font-semibold text-foreground">
+              Nomination Queue
+            </h2>
             <p className="text-xs text-foreground-muted mt-0.5">
               {pending.length} pending review
             </p>
@@ -130,7 +136,8 @@ function NominationQueue() {
                     <ThumbsUp className="w-3 h-3" /> {nomination.votes} votes
                   </span>
                   <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> {formatRelativeTime(nomination.createdAt)}
+                    <Clock className="w-3 h-3" />{" "}
+                    {formatRelativeTime(nomination.createdAt)}
                   </span>
                   <span>by {nomination.nominatorName}</span>
                 </div>
@@ -156,7 +163,9 @@ function MiniLeaderboard() {
       <GlassCard noPadding>
         <div className="p-6 pb-3 flex items-center justify-between">
           <div>
-            <h2 className="text-base font-semibold text-foreground">Top Performers</h2>
+            <h2 className="text-base font-semibold text-foreground">
+              Top Performers
+            </h2>
             <p className="text-xs text-foreground-muted mt-0.5">This quarter</p>
           </div>
           <Link href="/leaderboard">
@@ -173,7 +182,10 @@ function MiniLeaderboard() {
             >
               <span
                 className={`w-6 text-center text-xs font-bold ${
-                  i === 0 ? "text-amber-400" : i === 1 ? "text-slate-300" : i === 2 ? "text-amber-600" : "text-foreground-muted"
+                  i === 0 ? "text-amber-400"
+                  : i === 1 ? "text-slate-300"
+                  : i === 2 ? "text-amber-600"
+                  : "text-foreground-muted"
                 }`}
               >
                 {entry.rank}
@@ -260,8 +272,12 @@ function MiniChart() {
       <GlassCard>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-base font-semibold text-foreground">Nomination Trend</h2>
-            <p className="text-xs text-foreground-muted mt-0.5">Last 12 months</p>
+            <h2 className="text-base font-semibold text-foreground">
+              Nomination Trend
+            </h2>
+            <p className="text-xs text-foreground-muted mt-0.5">
+              Last 12 months
+            </p>
           </div>
           <Link href="/analytics">
             <Button variant="ghost" size="sm">
@@ -375,7 +391,9 @@ export default function DashboardPage() {
         <motion.div variants={item} className="col-span-2">
           <GlassCard className="h-full flex flex-col justify-between">
             <div>
-              <h2 className="text-base font-semibold text-foreground mb-1">Quick Actions</h2>
+              <h2 className="text-base font-semibold text-foreground mb-1">
+                Quick Actions
+              </h2>
               <p className="text-xs text-foreground-muted mb-4">
                 Streamline your recognition workflow
               </p>

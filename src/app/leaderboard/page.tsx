@@ -21,11 +21,21 @@ const podiumVariants = {
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.15, duration: 0.6, ease: [0.4, 0, 0.2, 1] as const },
+    transition: {
+      delay: i * 0.15,
+      duration: 0.6,
+      ease: [0.4, 0, 0.2, 1] as const,
+    },
   }),
 };
 
-function PodiumCard({ entry, position }: { entry: (typeof leaderboard)[0]; position: 1 | 2 | 3 }) {
+function PodiumCard({
+  entry,
+  position,
+}: {
+  entry: (typeof leaderboard)[0];
+  position: 1 | 2 | 3;
+}) {
   const heights = { 1: "h-48", 2: "h-40", 3: "h-36" };
   const sizes = { 1: "xl" as const, 2: "lg" as const, 3: "lg" as const };
   const icons = {
@@ -42,7 +52,12 @@ function PodiumCard({ entry, position }: { entry: (typeof leaderboard)[0]; posit
 
   return (
     <motion.div
-      custom={position === 1 ? 0 : position === 2 ? 1 : 2}
+      custom={
+        position === 1 ? 0
+        : position === 2 ?
+          1
+        : 2
+      }
       variants={podiumVariants}
       initial="hidden"
       animate="show"
@@ -52,7 +67,14 @@ function PodiumCard({ entry, position }: { entry: (typeof leaderboard)[0]; posit
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ delay: position === 1 ? 0.3 : position === 2 ? 0.45 : 0.6, type: "spring", bounce: 0.4 }}
+          transition={{
+            delay:
+              position === 1 ? 0.3
+              : position === 2 ? 0.45
+              : 0.6,
+            type: "spring",
+            bounce: 0.4,
+          }}
           className="mb-3"
         >
           {icons[position]}
@@ -63,23 +85,31 @@ function PodiumCard({ entry, position }: { entry: (typeof leaderboard)[0]; posit
           showRing
           ringColor={position === 1 ? "gold" : "gradient"}
         />
-        <h3 className={`mt-3 font-bold text-foreground ${position === 1 ? "text-lg" : "text-sm"}`}>
+        <h3
+          className={`mt-3 font-bold text-foreground ${position === 1 ? "text-lg" : "text-sm"}`}
+        >
           {entry.employee.name}
         </h3>
         <p className="text-xs text-foreground-muted">{entry.employee.role}</p>
         <div className="flex items-center gap-2 mt-2">
-          <Badge variant={position === 1 ? "gold" : "default"}>Score {entry.score}</Badge>
+          <Badge variant={position === 1 ? "gold" : "default"}>
+            Score {entry.score}
+          </Badge>
         </div>
         <GlassCard
           glow={glows[position]}
           className={`w-full mt-4 ${heights[position]} flex flex-col items-center justify-center`}
         >
-          <span className={`text-4xl font-bold ${position === 1 ? "gradient-text" : "text-foreground"}`}>
+          <span
+            className={`text-4xl font-bold ${position === 1 ? "gradient-text" : "text-foreground"}`}
+          >
             #{position}
           </span>
           <div className="mt-2 text-center">
             <p className="text-xs text-foreground-muted">{entry.wins} wins</p>
-            <p className="text-xs text-foreground-muted">{entry.nominations} nominations</p>
+            <p className="text-xs text-foreground-muted">
+              {entry.nominations} nominations
+            </p>
           </div>
         </GlassCard>
       </div>
@@ -123,8 +153,12 @@ export default function LeaderboardPage() {
       {/* Full Rankings Table */}
       <GlassCard noPadding>
         <div className="p-6 pb-3">
-          <h2 className="text-base font-semibold text-foreground">Full Rankings</h2>
-          <p className="text-xs text-foreground-muted mt-0.5">All-time performance scores</p>
+          <h2 className="text-base font-semibold text-foreground">
+            Full Rankings
+          </h2>
+          <p className="text-xs text-foreground-muted mt-0.5">
+            All-time performance scores
+          </p>
         </div>
 
         {/* Header */}
@@ -151,13 +185,10 @@ export default function LeaderboardPage() {
             <div className="col-span-1">
               <span
                 className={`text-sm font-bold ${
-                  i === 0
-                    ? "text-amber-400"
-                    : i === 1
-                    ? "text-slate-300"
-                    : i === 2
-                    ? "text-amber-600"
-                    : "text-foreground-muted"
+                  i === 0 ? "text-amber-400"
+                  : i === 1 ? "text-slate-300"
+                  : i === 2 ? "text-amber-600"
+                  : "text-foreground-muted"
                 }`}
               >
                 {entry.rank}
@@ -171,12 +202,18 @@ export default function LeaderboardPage() {
                 ringColor={i === 0 ? "gold" : "none"}
               />
               <div className="min-w-0">
-                <p className="text-sm font-medium text-foreground truncate">{entry.employee.name}</p>
-                <p className="text-[10px] text-foreground-muted">{entry.employee.role} · {entry.employee.department}</p>
+                <p className="text-sm font-medium text-foreground truncate">
+                  {entry.employee.name}
+                </p>
+                <p className="text-[10px] text-foreground-muted">
+                  {entry.employee.role} · {entry.employee.department}
+                </p>
               </div>
             </div>
             <div className="col-span-2 text-center">
-              <span className="text-sm text-foreground">{entry.nominations}</span>
+              <span className="text-sm text-foreground">
+                {entry.nominations}
+              </span>
             </div>
             <div className="col-span-1 text-center">
               <span className="text-sm text-foreground">{entry.wins}</span>
@@ -191,18 +228,18 @@ export default function LeaderboardPage() {
                     className="h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-indigo"
                   />
                 </div>
-                <span className="text-xs font-medium text-foreground">{entry.score}</span>
+                <span className="text-xs font-medium text-foreground">
+                  {entry.score}
+                </span>
               </div>
             </div>
             <div className="col-span-2 flex items-center justify-center gap-1.5">
               {trendIcon[entry.trend]}
               <span
                 className={`text-xs ${
-                  entry.trend === "up"
-                    ? "text-emerald-400"
-                    : entry.trend === "down"
-                    ? "text-red-400"
-                    : "text-foreground-muted"
+                  entry.trend === "up" ? "text-emerald-400"
+                  : entry.trend === "down" ? "text-red-400"
+                  : "text-foreground-muted"
                 }`}
               >
                 {entry.trend === "up" && (

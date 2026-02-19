@@ -17,13 +17,7 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import {
-  TrendingUp,
-  Users,
-  Award,
-  Zap,
-  ArrowUpRight,
-} from "lucide-react";
+import { TrendingUp, Users, Award, Zap, ArrowUpRight } from "lucide-react";
 
 const container = {
   hidden: { opacity: 0 },
@@ -32,19 +26,40 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as const } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] as const },
+  },
 };
 
-const COLORS = ["#22D3EE", "#818CF8", "#C084FC", "#10B981", "#F59E0B", "#F472B6", "#6366F1"];
+const COLORS = [
+  "#22D3EE",
+  "#818CF8",
+  "#C084FC",
+  "#10B981",
+  "#F59E0B",
+  "#F472B6",
+  "#6366F1",
+];
 
-const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{ value: number; name: string; color: string }>; label?: string }) => {
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: Array<{ value: number; name: string; color: string }>;
+  label?: string;
+}) => {
   if (!active || !payload) return null;
   return (
     <div className="bg-layer-2 border border-white/10 rounded-[4px] px-3 py-2 shadow-xl">
       <p className="text-xs font-medium text-foreground mb-1">{label}</p>
       {payload.map((entry, i) => (
         <p key={i} className="text-xs text-foreground-muted">
-          <span style={{ color: entry.color }}>{entry.name}:</span> {entry.value}
+          <span style={{ color: entry.color }}>{entry.name}:</span>{" "}
+          {entry.value}
         </p>
       ))}
     </div>
@@ -74,7 +89,8 @@ export default function AnalyticsPage() {
           <span className="gradient-text">Analytics</span>
         </h1>
         <p className="text-sm text-foreground-muted mt-1">
-          Insights into nomination patterns, participation, and recognition trends.
+          Insights into nomination patterns, participation, and recognition
+          trends.
         </p>
       </motion.div>
 
@@ -82,19 +98,47 @@ export default function AnalyticsPage() {
         {/* Summary Stats */}
         <motion.div variants={item} className="grid grid-cols-4 gap-5 mb-6">
           {[
-            { label: "Total Nominations", value: stats.totalNominations, icon: TrendingUp, color: "text-accent-cyan" },
-            { label: "Participation Rate", value: `${stats.participationRate}%`, icon: Users, color: "text-accent-indigo" },
-            { label: "Awards Given", value: stats.awardsGiven, icon: Award, color: "text-accent-purple" },
-            { label: "Avg Votes/Nomination", value: stats.avgVotesPerNomination, icon: Zap, color: "text-amber-400" },
+            {
+              label: "Total Nominations",
+              value: stats.totalNominations,
+              icon: TrendingUp,
+              color: "text-accent-cyan",
+            },
+            {
+              label: "Participation Rate",
+              value: `${stats.participationRate}%`,
+              icon: Users,
+              color: "text-accent-indigo",
+            },
+            {
+              label: "Awards Given",
+              value: stats.awardsGiven,
+              icon: Award,
+              color: "text-accent-purple",
+            },
+            {
+              label: "Avg Votes/Nomination",
+              value: stats.avgVotesPerNomination,
+              icon: Zap,
+              color: "text-amber-400",
+            },
           ].map((stat) => {
             const Icon = stat.icon;
             return (
-              <GlassCard key={stat.label} variant="interactive" className="group">
+              <GlassCard
+                key={stat.label}
+                variant="interactive"
+                className="group"
+              >
                 <div className="flex items-center gap-3">
                   <Icon className={`w-5 h-5 ${stat.color}`} strokeWidth={1.5} />
                   <div>
-                    <p className="text-xs text-foreground-muted">{stat.label}</p>
-                    <p className="text-xl font-bold text-foreground">{stat.value}</p>
+                    <p className="text-xs text-foreground-muted">
+                      {stat.label}
+                    </p>
+                    <p className="text-xl font-bold text-foreground">
+                      {stat.value}
+                    </p>
                   </div>
                 </div>
               </GlassCard>
@@ -109,8 +153,12 @@ export default function AnalyticsPage() {
             <GlassCard>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-base font-semibold text-foreground">Nomination Volume</h2>
-                  <p className="text-xs text-foreground-muted mt-0.5">Monthly nomination submissions</p>
+                  <h2 className="text-base font-semibold text-foreground">
+                    Nomination Volume
+                  </h2>
+                  <p className="text-xs text-foreground-muted mt-0.5">
+                    Monthly nomination submissions
+                  </p>
                 </div>
                 <div className="flex items-center gap-1 text-xs text-emerald-400">
                   <ArrowUpRight className="w-3 h-3" />
@@ -122,12 +170,27 @@ export default function AnalyticsPage() {
                   <AreaChart data={analyticsData}>
                     <defs>
                       <linearGradient id="nomGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#22D3EE" stopOpacity={0.3} />
-                        <stop offset="50%" stopColor="#818CF8" stopOpacity={0.15} />
-                        <stop offset="100%" stopColor="#C084FC" stopOpacity={0} />
+                        <stop
+                          offset="0%"
+                          stopColor="#22D3EE"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="50%"
+                          stopColor="#818CF8"
+                          stopOpacity={0.15}
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#C084FC"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="rgba(255,255,255,0.03)"
+                    />
                     <XAxis
                       dataKey="month"
                       axisLine={false}
@@ -159,8 +222,12 @@ export default function AnalyticsPage() {
             <GlassCard>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-base font-semibold text-foreground">Participation Rate</h2>
-                  <p className="text-xs text-foreground-muted mt-0.5">Percentage of employees actively nominating</p>
+                  <h2 className="text-base font-semibold text-foreground">
+                    Participation Rate
+                  </h2>
+                  <p className="text-xs text-foreground-muted mt-0.5">
+                    Percentage of employees actively nominating
+                  </p>
                 </div>
                 <div className="flex items-center gap-1 text-xs text-emerald-400">
                   <ArrowUpRight className="w-3 h-3" />
@@ -172,12 +239,27 @@ export default function AnalyticsPage() {
                   <AreaChart data={analyticsData}>
                     <defs>
                       <linearGradient id="partGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#C084FC" stopOpacity={0.3} />
-                        <stop offset="50%" stopColor="#818CF8" stopOpacity={0.15} />
-                        <stop offset="100%" stopColor="#22D3EE" stopOpacity={0} />
+                        <stop
+                          offset="0%"
+                          stopColor="#C084FC"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="50%"
+                          stopColor="#818CF8"
+                          stopOpacity={0.15}
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#22D3EE"
+                          stopOpacity={0}
+                        />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" />
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="rgba(255,255,255,0.03)"
+                    />
                     <XAxis
                       dataKey="month"
                       axisLine={false}
@@ -213,20 +295,41 @@ export default function AnalyticsPage() {
           <motion.div variants={item} className="col-span-2">
             <GlassCard>
               <div className="mb-6">
-                <h2 className="text-base font-semibold text-foreground">Department Breakdown</h2>
-                <p className="text-xs text-foreground-muted mt-0.5">Nominations by department (current month)</p>
+                <h2 className="text-base font-semibold text-foreground">
+                  Department Breakdown
+                </h2>
+                <p className="text-xs text-foreground-muted mt-0.5">
+                  Nominations by department (current month)
+                </p>
               </div>
               <div className="h-[280px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={pieData} layout="vertical">
                     <defs>
                       <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#22D3EE" stopOpacity={0.8} />
-                        <stop offset="100%" stopColor="#818CF8" stopOpacity={0.8} />
+                        <stop
+                          offset="0%"
+                          stopColor="#22D3EE"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#818CF8"
+                          stopOpacity={0.8}
+                        />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" horizontal={false} />
-                    <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} />
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="rgba(255,255,255,0.03)"
+                      horizontal={false}
+                    />
+                    <XAxis
+                      type="number"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: "#94A3B8", fontSize: 11 }}
+                    />
                     <YAxis
                       dataKey="name"
                       type="category"
@@ -253,8 +356,12 @@ export default function AnalyticsPage() {
           <motion.div variants={item}>
             <GlassCard>
               <div className="mb-6">
-                <h2 className="text-base font-semibold text-foreground">Distribution</h2>
-                <p className="text-xs text-foreground-muted mt-0.5">Share by department</p>
+                <h2 className="text-base font-semibold text-foreground">
+                  Distribution
+                </h2>
+                <p className="text-xs text-foreground-muted mt-0.5">
+                  Share by department
+                </p>
               </div>
               <div className="h-[200px]">
                 <ResponsiveContainer width="100%" height="100%">
@@ -270,7 +377,11 @@ export default function AnalyticsPage() {
                       strokeWidth={0}
                     >
                       {pieData.map((_, i) => (
-                        <Cell key={i} fill={COLORS[i % COLORS.length]} opacity={0.7} />
+                        <Cell
+                          key={i}
+                          fill={COLORS[i % COLORS.length]}
+                          opacity={0.7}
+                        />
                       ))}
                     </Pie>
                     <Tooltip content={<CustomTooltip />} />
@@ -285,7 +396,9 @@ export default function AnalyticsPage() {
                       className="w-2 h-2 rounded-full shrink-0"
                       style={{ backgroundColor: COLORS[i % COLORS.length] }}
                     />
-                    <span className="text-[10px] text-foreground-muted truncate">{entry.name}</span>
+                    <span className="text-[10px] text-foreground-muted truncate">
+                      {entry.name}
+                    </span>
                   </div>
                 ))}
               </div>

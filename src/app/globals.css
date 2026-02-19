@@ -2,17 +2,17 @@
 
 :root {
   --layer-0: #020617;
-  --layer-1: #0F172A;
-  --layer-2: #1E293B;
-  --foreground: #E2E8F0;
-  --foreground-muted: #94A3B8;
-  --accent-cyan: #22D3EE;
-  --accent-indigo: #818CF8;
-  --accent-purple: #C084FC;
+  --layer-1: #0f172a;
+  --layer-2: #1e293b;
+  --foreground: #e2e8f0;
+  --foreground-muted: #94a3b8;
+  --accent-cyan: #22d3ee;
+  --accent-indigo: #818cf8;
+  --accent-purple: #c084fc;
   --success: rgba(16, 185, 129, 0.1);
-  --success-solid: #10B981;
-  --gold-from: #F59E0B;
-  --gold-to: #D4A574;
+  --success-solid: #10b981;
+  --gold-from: #f59e0b;
+  --gold-to: #d4a574;
   --radius: 4px;
 }
 
@@ -31,7 +31,8 @@
   --color-gold-to: var(--gold-to);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-cal-sans), var(--font-geist-sans), system-ui, sans-serif;
+  --font-display:
+    var(--font-cal-sans), var(--font-geist-sans), system-ui, sans-serif;
 }
 
 * {
@@ -48,7 +49,12 @@ body {
 
 /* Gradient accent text */
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo), var(--accent-purple));
+  background: linear-gradient(
+    135deg,
+    var(--accent-cyan),
+    var(--accent-indigo),
+    var(--accent-purple)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -64,9 +70,18 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo), var(--accent-purple));
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  background: linear-gradient(
+    135deg,
+    var(--accent-cyan),
+    var(--accent-indigo),
+    var(--accent-purple)
+  );
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
   pointer-events: none;
@@ -74,7 +89,12 @@ body {
 
 /* Gold shimmer for top performer */
 .gold-shimmer {
-  background: linear-gradient(135deg, var(--gold-from), var(--gold-to), var(--gold-from));
+  background: linear-gradient(
+    135deg,
+    var(--gold-from),
+    var(--gold-to),
+    var(--gold-from)
+  );
   background-size: 200% 200%;
   animation: shimmer 3s ease-in-out infinite;
 }
@@ -92,8 +112,12 @@ body {
 
 /* Skeleton shimmer animation */
 @keyframes skeleton-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .skeleton-shimmer {
@@ -108,14 +132,25 @@ body {
 }
 
 @keyframes shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Glow effect */
-.glow-cyan { box-shadow: 0 0 20px rgba(34, 211, 238, 0.15); }
-.glow-indigo { box-shadow: 0 0 20px rgba(129, 140, 248, 0.15); }
-.glow-purple { box-shadow: 0 0 20px rgba(192, 132, 252, 0.15); }
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.15);
+}
+.glow-indigo {
+  box-shadow: 0 0 20px rgba(129, 140, 248, 0.15);
+}
+.glow-purple {
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.15);
+}
 .glow-gradient {
   box-shadow:
     0 0 20px rgba(34, 211, 238, 0.1),
@@ -142,5 +177,7 @@ body {
 /* Focus ring */
 .focus-ring:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--layer-0), 0 0 0 4px var(--accent-indigo);
+  box-shadow:
+    0 0 0 2px var(--layer-0),
+    0 0 0 4px var(--accent-indigo);
 }

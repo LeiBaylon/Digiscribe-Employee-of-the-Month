@@ -9,7 +9,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", children, ...props }, ref) => {
+  (
+    { className, variant = "primary", size = "md", children, ...props },
+    ref,
+  ) => {
     return (
       <button
         ref={ref}
@@ -27,13 +30,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           size === "md" && "h-10 px-4 text-sm",
           size === "lg" && "h-12 px-6 text-base",
           "disabled:opacity-50 disabled:pointer-events-none",
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </button>
     );
-  }
+  },
 );
 Button.displayName = "Button";

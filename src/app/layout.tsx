@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Employee of the Month Portal",
-  description: "Recognize excellence. Celebrate achievement. Inspire greatness.",
+  description:
+    "Recognize excellence. Celebrate achievement. Inspire greatness.",
 };
 
 export default function RootLayout({

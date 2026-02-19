@@ -28,7 +28,11 @@ function HallOfFameSVG() {
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg viewBox="0 0 1000 640" className="w-full max-w-[1000px] mx-auto" style={{ minWidth: 600 }}>
+      <svg
+        viewBox="0 0 1000 640"
+        className="w-full max-w-[1000px] mx-auto"
+        style={{ minWidth: 600 }}
+      >
         <defs>
           <linearGradient id="svgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.3" />
@@ -56,8 +60,24 @@ function HallOfFameSVG() {
         <circle cx={centerX} cy={centerY} r={320} fill="url(#bgGlow)" />
 
         {/* Connection rings */}
-        <circle cx={centerX} cy={centerY} r={160} fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" strokeDasharray="4 8" />
-        <circle cx={centerX} cy={centerY} r={280} fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="1" strokeDasharray="4 8" />
+        <circle
+          cx={centerX}
+          cy={centerY}
+          r={160}
+          fill="none"
+          stroke="rgba(255,255,255,0.03)"
+          strokeWidth="1"
+          strokeDasharray="4 8"
+        />
+        <circle
+          cx={centerX}
+          cy={centerY}
+          r={280}
+          fill="none"
+          stroke="rgba(255,255,255,0.02)"
+          strokeWidth="1"
+          strokeDasharray="4 8"
+        />
 
         {/* Connection lines to center */}
         {rings[1].items.map((_, i) => {
@@ -82,7 +102,10 @@ function HallOfFameSVG() {
           const angle = (Math.PI * 2 * i) / rings[2].items.length - Math.PI / 2;
           const x = centerX + 280 * Math.cos(angle);
           const y = centerY + 280 * Math.sin(angle);
-          const initials = winner.employee.name.split(" ").map(n => n[0]).join("");
+          const initials = winner.employee.name
+            .split(" ")
+            .map((n) => n[0])
+            .join("");
           return (
             <motion.g
               key={`outer-${i}`}
@@ -96,10 +119,23 @@ function HallOfFameSVG() {
                 stroke="rgba(255,255,255,0.1)"
                 strokeWidth="1"
               />
-              <text x={x} y={y - 4} textAnchor="middle" fill="#94A3B8" fontSize="11" fontWeight="600">
+              <text
+                x={x}
+                y={y - 4}
+                textAnchor="middle"
+                fill="#94A3B8"
+                fontSize="11"
+                fontWeight="600"
+              >
                 {initials}
               </text>
-              <text x={x} y={y + 12} textAnchor="middle" fill="#64748B" fontSize="7">
+              <text
+                x={x}
+                y={y + 12}
+                textAnchor="middle"
+                fill="#64748B"
+                fontSize="7"
+              >
                 {winner.month.slice(0, 3)} {winner.year}
               </text>
             </motion.g>
@@ -111,7 +147,10 @@ function HallOfFameSVG() {
           const angle = (Math.PI * 2 * i) / 3 - Math.PI / 2;
           const x = centerX + 160 * Math.cos(angle);
           const y = centerY + 160 * Math.sin(angle);
-          const initials = winner.employee.name.split(" ").map(n => n[0]).join("");
+          const initials = winner.employee.name
+            .split(" ")
+            .map((n) => n[0])
+            .join("");
           return (
             <motion.g
               key={`inner-${i}`}
@@ -126,10 +165,23 @@ function HallOfFameSVG() {
                 strokeWidth="1.5"
                 filter="url(#glow)"
               />
-              <text x={x} y={y - 6} textAnchor="middle" fill="#E2E8F0" fontSize="13" fontWeight="700">
+              <text
+                x={x}
+                y={y - 6}
+                textAnchor="middle"
+                fill="#E2E8F0"
+                fontSize="13"
+                fontWeight="700"
+              >
                 {initials}
               </text>
-              <text x={x} y={y + 10} textAnchor="middle" fill="#94A3B8" fontSize="8">
+              <text
+                x={x}
+                y={y + 10}
+                textAnchor="middle"
+                fill="#94A3B8"
+                fontSize="8"
+              >
                 {winner.month.slice(0, 3)} {winner.year}
               </text>
             </motion.g>
@@ -140,7 +192,12 @@ function HallOfFameSVG() {
         <motion.g
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, type: "spring", bounce: 0.3, duration: 0.8 }}
+          transition={{
+            delay: 0.2,
+            type: "spring",
+            bounce: 0.3,
+            duration: 0.8,
+          }}
         >
           <polygon
             points={hexPoints(centerX, centerY, 55)}
@@ -149,16 +206,46 @@ function HallOfFameSVG() {
             strokeWidth="2"
             filter="url(#glow)"
           />
-          <text x={centerX} y={centerY - 12} textAnchor="middle" fill="#F59E0B" fontSize="16" fontWeight="800">
-            {monthlyWinners[0].employee.name.split(" ").map(n => n[0]).join("")}
+          <text
+            x={centerX}
+            y={centerY - 12}
+            textAnchor="middle"
+            fill="#F59E0B"
+            fontSize="16"
+            fontWeight="800"
+          >
+            {monthlyWinners[0].employee.name
+              .split(" ")
+              .map((n) => n[0])
+              .join("")}
           </text>
-          <text x={centerX} y={centerY + 6} textAnchor="middle" fill="#E2E8F0" fontSize="8" fontWeight="500">
+          <text
+            x={centerX}
+            y={centerY + 6}
+            textAnchor="middle"
+            fill="#E2E8F0"
+            fontSize="8"
+            fontWeight="500"
+          >
             EMPLOYEE OF
           </text>
-          <text x={centerX} y={centerY + 18} textAnchor="middle" fill="#E2E8F0" fontSize="8" fontWeight="500">
+          <text
+            x={centerX}
+            y={centerY + 18}
+            textAnchor="middle"
+            fill="#E2E8F0"
+            fontSize="8"
+            fontWeight="500"
+          >
             THE MONTH
           </text>
-          <text x={centerX} y={centerY + 34} textAnchor="middle" fill="#94A3B8" fontSize="7">
+          <text
+            x={centerX}
+            y={centerY + 34}
+            textAnchor="middle"
+            fill="#94A3B8"
+            fontSize="7"
+          >
             {monthlyWinners[0].month} {monthlyWinners[0].year}
           </text>
         </motion.g>
@@ -226,9 +313,15 @@ export default function HallOfFamePage() {
                   ringColor={i === 0 ? "gold" : "gradient"}
                 />
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground">{winner.employee.name}</h3>
-                  <p className="text-[10px] text-foreground-muted">{winner.employee.role}</p>
-                  <p className="text-[10px] text-foreground-muted">{winner.employee.department}</p>
+                  <h3 className="text-sm font-semibold text-foreground">
+                    {winner.employee.name}
+                  </h3>
+                  <p className="text-[10px] text-foreground-muted">
+                    {winner.employee.role}
+                  </p>
+                  <p className="text-[10px] text-foreground-muted">
+                    {winner.employee.department}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2 mb-2">

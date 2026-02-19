@@ -52,16 +52,22 @@ export function Avatar({
         "relative inline-flex items-center justify-center rounded-full font-medium bg-gradient-to-br shrink-0",
         colorClass,
         sizeClasses[size],
-        showRing && ringColor === "gradient" && "ring-2 ring-offset-2 ring-offset-layer-0 ring-accent-indigo",
-        showRing && ringColor === "gold" && "ring-2 ring-offset-2 ring-offset-layer-0 ring-amber-400",
-        className
+        showRing &&
+          ringColor === "gradient" &&
+          "ring-2 ring-offset-2 ring-offset-layer-0 ring-accent-indigo",
+        showRing &&
+          ringColor === "gold" &&
+          "ring-2 ring-offset-2 ring-offset-layer-0 ring-amber-400",
+        className,
       )}
     >
-      {src ? (
-        <img src={src} alt={name} className="w-full h-full rounded-full object-cover" />
-      ) : (
-        <span className="text-white">{initials}</span>
-      )}
+      {src ?
+        <img
+          src={src}
+          alt={name}
+          className="w-full h-full rounded-full object-cover"
+        />
+      : <span className="text-white">{initials}</span>}
     </div>
   );
 }

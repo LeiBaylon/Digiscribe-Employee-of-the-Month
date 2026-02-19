@@ -7,11 +7,7 @@ interface SkeletonProps {
 }
 
 export function Skeleton({ className }: SkeletonProps) {
-  return (
-    <div
-      className={cn("rounded-[4px] skeleton-shimmer", className)}
-    />
-  );
+  return <div className={cn("rounded-[4px] skeleton-shimmer", className)} />;
 }
 
 export function CardSkeleton() {

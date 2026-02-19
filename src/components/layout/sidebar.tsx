@@ -50,7 +50,9 @@ export function Sidebar() {
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden whitespace-nowrap"
               >
-                <span className="text-sm font-semibold gradient-text">EOM Portal</span>
+                <span className="text-sm font-semibold gradient-text">
+                  EOM Portal
+                </span>
               </motion.div>
             )}
           </AnimatePresence>
@@ -69,9 +71,9 @@ export function Sidebar() {
               href={item.href}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-[4px] text-sm font-medium transition-all duration-200 group relative",
-                isActive
-                  ? "bg-white/10 text-foreground"
-                  : "text-foreground-muted hover:text-foreground hover:bg-white/5"
+                isActive ?
+                  "bg-white/10 text-foreground"
+                : "text-foreground-muted hover:text-foreground hover:bg-white/5",
               )}
             >
               {isActive && (
@@ -84,7 +86,7 @@ export function Sidebar() {
               <Icon
                 className={cn(
                   "w-[18px] h-[18px] shrink-0 relative z-10",
-                  isActive && "text-accent-cyan"
+                  isActive && "text-accent-cyan",
                 )}
                 strokeWidth={1.5}
               />
@@ -121,8 +123,12 @@ export function Sidebar() {
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden whitespace-nowrap flex-1 min-w-0"
               >
-                <p className="text-xs font-medium text-foreground truncate">Admin User</p>
-                <p className="text-[10px] text-foreground-muted truncate">admin@company.com</p>
+                <p className="text-xs font-medium text-foreground truncate">
+                  Admin User
+                </p>
+                <p className="text-[10px] text-foreground-muted truncate">
+                  admin@company.com
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -134,11 +140,9 @@ export function Sidebar() {
         onClick={() => setCollapsed(!collapsed)}
         className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-layer-1 border border-white/10 flex items-center justify-center text-foreground-muted hover:text-foreground hover:bg-layer-2 transition-colors cursor-pointer"
       >
-        {collapsed ? (
+        {collapsed ?
           <ChevronRight className="w-3 h-3" />
-        ) : (
-          <ChevronLeft className="w-3 h-3" />
-        )}
+        : <ChevronLeft className="w-3 h-3" />}
       </button>
     </motion.aside>
   );

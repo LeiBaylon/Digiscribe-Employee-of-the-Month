@@ -32,12 +32,47 @@ const steps = [
   { id: 4, label: "Confirm", icon: Check },
 ];
 
-const categories: { value: NominationCategory; label: string; description: string; color: string }[] = [
-  { value: "innovation", label: "Innovation", description: "Pioneering new ideas, technologies, or processes", color: "from-cyan-500/20 to-cyan-500/5 border-cyan-500/30 hover:border-cyan-400/50" },
-  { value: "leadership", label: "Leadership", description: "Inspiring and guiding teams to achieve exceptional results", color: "from-indigo-500/20 to-indigo-500/5 border-indigo-500/30 hover:border-indigo-400/50" },
-  { value: "teamwork", label: "Teamwork", description: "Outstanding collaboration and support for colleagues", color: "from-purple-500/20 to-purple-500/5 border-purple-500/30 hover:border-purple-400/50" },
-  { value: "customer-excellence", label: "Customer Excellence", description: "Going above and beyond for customer satisfaction", color: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/30 hover:border-emerald-400/50" },
-  { value: "above-and-beyond", label: "Above & Beyond", description: "Exceeding expectations in extraordinary ways", color: "from-amber-500/20 to-amber-500/5 border-amber-500/30 hover:border-amber-400/50" },
+const categories: {
+  value: NominationCategory;
+  label: string;
+  description: string;
+  color: string;
+}[] = [
+  {
+    value: "innovation",
+    label: "Innovation",
+    description: "Pioneering new ideas, technologies, or processes",
+    color:
+      "from-cyan-500/20 to-cyan-500/5 border-cyan-500/30 hover:border-cyan-400/50",
+  },
+  {
+    value: "leadership",
+    label: "Leadership",
+    description: "Inspiring and guiding teams to achieve exceptional results",
+    color:
+      "from-indigo-500/20 to-indigo-500/5 border-indigo-500/30 hover:border-indigo-400/50",
+  },
+  {
+    value: "teamwork",
+    label: "Teamwork",
+    description: "Outstanding collaboration and support for colleagues",
+    color:
+      "from-purple-500/20 to-purple-500/5 border-purple-500/30 hover:border-purple-400/50",
+  },
+  {
+    value: "customer-excellence",
+    label: "Customer Excellence",
+    description: "Going above and beyond for customer satisfaction",
+    color:
+      "from-emerald-500/20 to-emerald-500/5 border-emerald-500/30 hover:border-emerald-400/50",
+  },
+  {
+    value: "above-and-beyond",
+    label: "Above & Beyond",
+    description: "Exceeding expectations in extraordinary ways",
+    color:
+      "from-amber-500/20 to-amber-500/5 border-amber-500/30 hover:border-amber-400/50",
+  },
 ];
 
 export default function NominationsPage() {
@@ -46,14 +81,15 @@ export default function NominationsPage() {
   const [submitted, setSubmitted] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedNominee, setSelectedNominee] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<NominationCategory | null>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<NominationCategory | null>(null);
   const [reason, setReason] = useState("");
   const [impact, setImpact] = useState("");
 
   const filteredEmployees = employees.filter(
     (e) =>
       e.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      e.department.toLowerCase().includes(searchQuery.toLowerCase())
+      e.department.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const selectedEmployee = employees.find((e) => e.id === selectedNominee);
@@ -130,8 +166,12 @@ export default function NominationsPage() {
               transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] as const }}
               className="relative z-10 w-full max-w-2xl mx-4"
             >
-              {submitted ? (
-                <GlassCard variant="elevated" glow="gradient" className="text-center py-12">
+              {submitted ?
+                <GlassCard
+                  variant="elevated"
+                  glow="gradient"
+                  className="text-center py-12"
+                >
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -141,21 +181,30 @@ export default function NominationsPage() {
                       <Check className="w-8 h-8 text-white" />
                     </div>
                   </motion.div>
-                  <h2 className="text-xl font-bold text-foreground mb-2">Nomination Submitted!</h2>
+                  <h2 className="text-xl font-bold text-foreground mb-2">
+                    Nomination Submitted!
+                  </h2>
                   <p className="text-sm text-foreground-muted mb-6">
-                    Your nomination for {selectedEmployee?.name} has been submitted for review.
+                    Your nomination for {selectedEmployee?.name} has been
+                    submitted for review.
                   </p>
                   <Button variant="secondary" onClick={resetForm}>
                     Close
                   </Button>
                 </GlassCard>
-              ) : (
-                <GlassCard variant="elevated" noPadding>
+              : <GlassCard variant="elevated" noPadding>
                   {/* Step indicator */}
                   <div className="px-6 pt-6 pb-4 border-b border-white/5">
                     <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-lg font-semibold text-foreground">New Nomination</h2>
-                      <button onClick={resetForm} className="text-foreground-muted hover:text-foreground text-xl cursor-pointer">&times;</button>
+                      <h2 className="text-lg font-semibold text-foreground">
+                        New Nomination
+                      </h2>
+                      <button
+                        onClick={resetForm}
+                        className="text-foreground-muted hover:text-foreground text-xl cursor-pointer"
+                      >
+                        &times;
+                      </button>
                     </div>
                     <div className="flex items-center gap-2">
                       {steps.map((step, i) => {
@@ -163,20 +212,30 @@ export default function NominationsPage() {
                         const isActive = step.id === currentStep;
                         const isCompleted = step.id < currentStep;
                         return (
-                          <div key={step.id} className="flex items-center gap-2 flex-1">
+                          <div
+                            key={step.id}
+                            className="flex items-center gap-2 flex-1"
+                          >
                             <div
                               className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-all duration-300 ${
-                                isCompleted
-                                  ? "bg-accent-indigo text-white"
-                                  : isActive
-                                  ? "bg-accent-indigo/20 text-accent-indigo border border-accent-indigo/50"
-                                  : "bg-white/5 text-foreground-muted"
+                                isCompleted ? "bg-accent-indigo text-white"
+                                : isActive ?
+                                  "bg-accent-indigo/20 text-accent-indigo border border-accent-indigo/50"
+                                : "bg-white/5 text-foreground-muted"
                               }`}
                             >
-                              {isCompleted ? <Check className="w-3.5 h-3.5" /> : <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />}
+                              {isCompleted ?
+                                <Check className="w-3.5 h-3.5" />
+                              : <Icon
+                                  className="w-3.5 h-3.5"
+                                  strokeWidth={1.5}
+                                />
+                              }
                             </div>
                             {i < steps.length - 1 && (
-                              <div className={`flex-1 h-px ${isCompleted ? "bg-accent-indigo" : "bg-white/10"}`} />
+                              <div
+                                className={`flex-1 h-px ${isCompleted ? "bg-accent-indigo" : "bg-white/10"}`}
+                              />
                             )}
                           </div>
                         );
@@ -195,8 +254,12 @@ export default function NominationsPage() {
                           exit={{ opacity: 0, x: -20 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <h3 className="text-base font-semibold text-foreground mb-1">Select Nominee</h3>
-                          <p className="text-xs text-foreground-muted mb-4">Choose the colleague you want to recognize.</p>
+                          <h3 className="text-base font-semibold text-foreground mb-1">
+                            Select Nominee
+                          </h3>
+                          <p className="text-xs text-foreground-muted mb-4">
+                            Choose the colleague you want to recognize.
+                          </p>
                           <div className="relative mb-4">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground-muted" />
                             <input
@@ -213,15 +276,19 @@ export default function NominationsPage() {
                                 key={employee.id}
                                 onClick={() => setSelectedNominee(employee.id)}
                                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-[4px] text-left transition-all duration-200 cursor-pointer ${
-                                  selectedNominee === employee.id
-                                    ? "bg-accent-indigo/10 border border-accent-indigo/30"
-                                    : "hover:bg-white/5 border border-transparent"
+                                  selectedNominee === employee.id ?
+                                    "bg-accent-indigo/10 border border-accent-indigo/30"
+                                  : "hover:bg-white/5 border border-transparent"
                                 }`}
                               >
                                 <Avatar name={employee.name} size="sm" />
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-medium text-foreground">{employee.name}</p>
-                                  <p className="text-[10px] text-foreground-muted">{employee.role} · {employee.department}</p>
+                                  <p className="text-sm font-medium text-foreground">
+                                    {employee.name}
+                                  </p>
+                                  <p className="text-[10px] text-foreground-muted">
+                                    {employee.role} · {employee.department}
+                                  </p>
                                 </div>
                                 {selectedNominee === employee.id && (
                                   <Check className="w-4 h-4 text-accent-indigo" />
@@ -240,20 +307,30 @@ export default function NominationsPage() {
                           exit={{ opacity: 0, x: -20 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <h3 className="text-base font-semibold text-foreground mb-1">Select Category</h3>
-                          <p className="text-xs text-foreground-muted mb-4">What type of achievement are you recognizing?</p>
+                          <h3 className="text-base font-semibold text-foreground mb-1">
+                            Select Category
+                          </h3>
+                          <p className="text-xs text-foreground-muted mb-4">
+                            What type of achievement are you recognizing?
+                          </p>
                           <div className="space-y-2">
                             {categories.map((cat) => (
                               <button
                                 key={cat.value}
                                 onClick={() => setSelectedCategory(cat.value)}
                                 className={`w-full flex items-center gap-4 px-4 py-3 rounded-[4px] text-left transition-all duration-200 border cursor-pointer bg-gradient-to-r ${cat.color} ${
-                                  selectedCategory === cat.value ? "ring-1 ring-white/20" : ""
+                                  selectedCategory === cat.value ?
+                                    "ring-1 ring-white/20"
+                                  : ""
                                 }`}
                               >
                                 <div className="flex-1">
-                                  <p className="text-sm font-medium text-foreground">{cat.label}</p>
-                                  <p className="text-[10px] text-foreground-muted">{cat.description}</p>
+                                  <p className="text-sm font-medium text-foreground">
+                                    {cat.label}
+                                  </p>
+                                  <p className="text-[10px] text-foreground-muted">
+                                    {cat.description}
+                                  </p>
                                 </div>
                                 {selectedCategory === cat.value && (
                                   <Check className="w-4 h-4 text-accent-indigo" />
@@ -273,8 +350,12 @@ export default function NominationsPage() {
                           transition={{ duration: 0.2 }}
                           className="space-y-4"
                         >
-                          <h3 className="text-base font-semibold text-foreground mb-1">Nomination Details</h3>
-                          <p className="text-xs text-foreground-muted mb-4">Tell us why this person deserves recognition.</p>
+                          <h3 className="text-base font-semibold text-foreground mb-1">
+                            Nomination Details
+                          </h3>
+                          <p className="text-xs text-foreground-muted mb-4">
+                            Tell us why this person deserves recognition.
+                          </p>
                           <Textarea
                             id="reason"
                             label="Reason for Nomination"
@@ -302,29 +383,53 @@ export default function NominationsPage() {
                           exit={{ opacity: 0, x: -20 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <h3 className="text-base font-semibold text-foreground mb-1">Review & Submit</h3>
-                          <p className="text-xs text-foreground-muted mb-4">Please review your nomination before submitting.</p>
+                          <h3 className="text-base font-semibold text-foreground mb-1">
+                            Review & Submit
+                          </h3>
+                          <p className="text-xs text-foreground-muted mb-4">
+                            Please review your nomination before submitting.
+                          </p>
                           <div className="space-y-4">
                             <div className="flex items-center gap-3 p-4 rounded-[4px] bg-white/5 border border-white/10">
-                              <Avatar name={selectedEmployee?.name || ""} size="lg" showRing ringColor="gradient" />
+                              <Avatar
+                                name={selectedEmployee?.name || ""}
+                                size="lg"
+                                showRing
+                                ringColor="gradient"
+                              />
                               <div>
-                                <p className="text-sm font-semibold text-foreground">{selectedEmployee?.name}</p>
-                                <p className="text-xs text-foreground-muted">{selectedEmployee?.role} · {selectedEmployee?.department}</p>
+                                <p className="text-sm font-semibold text-foreground">
+                                  {selectedEmployee?.name}
+                                </p>
+                                <p className="text-xs text-foreground-muted">
+                                  {selectedEmployee?.role} ·{" "}
+                                  {selectedEmployee?.department}
+                                </p>
                               </div>
                             </div>
                             {selectedCategory && (
                               <div>
-                                <p className="text-xs text-foreground-muted mb-1">Category</p>
+                                <p className="text-xs text-foreground-muted mb-1">
+                                  Category
+                                </p>
                                 <CategoryBadge category={selectedCategory} />
                               </div>
                             )}
                             <div>
-                              <p className="text-xs text-foreground-muted mb-1">Reason</p>
-                              <p className="text-sm text-foreground">{reason || "Not provided"}</p>
+                              <p className="text-xs text-foreground-muted mb-1">
+                                Reason
+                              </p>
+                              <p className="text-sm text-foreground">
+                                {reason || "Not provided"}
+                              </p>
                             </div>
                             <div>
-                              <p className="text-xs text-foreground-muted mb-1">Business Impact</p>
-                              <p className="text-sm text-foreground">{impact || "Not provided"}</p>
+                              <p className="text-xs text-foreground-muted mb-1">
+                                Business Impact
+                              </p>
+                              <p className="text-sm text-foreground">
+                                {impact || "Not provided"}
+                              </p>
                             </div>
                           </div>
                         </motion.div>
@@ -342,7 +447,7 @@ export default function NominationsPage() {
                     >
                       <ChevronLeft className="w-4 h-4" /> Back
                     </Button>
-                    {currentStep < 4 ? (
+                    {currentStep < 4 ?
                       <Button
                         variant="primary"
                         size="sm"
@@ -355,14 +460,17 @@ export default function NominationsPage() {
                       >
                         Continue <ChevronRight className="w-4 h-4" />
                       </Button>
-                    ) : (
-                      <Button variant="primary" size="sm" onClick={handleSubmit}>
+                    : <Button
+                        variant="primary"
+                        size="sm"
+                        onClick={handleSubmit}
+                      >
                         <Sparkles className="w-4 h-4" /> Submit Nomination
                       </Button>
-                    )}
+                    }
                   </div>
                 </GlassCard>
-              )}
+              }
             </motion.div>
           </motion.div>
         )}
@@ -375,7 +483,9 @@ export default function NominationsPage() {
         transition={{ delay: 0.2 }}
         className="space-y-3"
       >
-        <h2 className="text-base font-semibold text-foreground mb-4">Recent Nominations</h2>
+        <h2 className="text-base font-semibold text-foreground mb-4">
+          Recent Nominations
+        </h2>
         {nominations.map((nomination, i) => (
           <motion.div
             key={nomination.id}
@@ -388,19 +498,28 @@ export default function NominationsPage() {
                 <Avatar name={nomination.nomineeName} size="lg" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <span className="text-sm font-semibold text-foreground">{nomination.nomineeName}</span>
+                    <span className="text-sm font-semibold text-foreground">
+                      {nomination.nomineeName}
+                    </span>
                     <CategoryBadge category={nomination.category} />
                     <StatusBadge status={nomination.status} />
                   </div>
-                  <p className="text-xs text-foreground-muted mb-2">{nomination.nomineeRole} · {nomination.nomineeDepartment}</p>
-                  <p className="text-sm text-foreground/90 mb-2">{nomination.reason}</p>
-                  <p className="text-xs text-foreground-muted italic">{nomination.impact}</p>
+                  <p className="text-xs text-foreground-muted mb-2">
+                    {nomination.nomineeRole} · {nomination.nomineeDepartment}
+                  </p>
+                  <p className="text-sm text-foreground/90 mb-2">
+                    {nomination.reason}
+                  </p>
+                  <p className="text-xs text-foreground-muted italic">
+                    {nomination.impact}
+                  </p>
                   <div className="flex items-center gap-4 mt-3 text-xs text-foreground-muted">
                     <span className="flex items-center gap-1">
                       <ThumbsUp className="w-3 h-3" /> {nomination.votes} votes
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" /> {formatRelativeTime(nomination.createdAt)}
+                      <Clock className="w-3 h-3" />{" "}
+                      {formatRelativeTime(nomination.createdAt)}
                     </span>
                     <span>Nominated by {nomination.nominatorName}</span>
                   </div>

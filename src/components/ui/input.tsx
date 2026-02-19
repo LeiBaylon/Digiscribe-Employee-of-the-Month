@@ -13,7 +13,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="space-y-1.5">
         {label && (
-          <label htmlFor={id} className="block text-sm font-medium text-foreground-muted">
+          <label
+            htmlFor={id}
+            className="block text-sm font-medium text-foreground-muted"
+          >
             {label}
           </label>
         )}
@@ -24,15 +27,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             "w-full h-10 px-3 rounded-[4px] bg-white/5 border border-white/10 text-foreground text-sm",
             "placeholder:text-foreground-muted/50 transition-all duration-200",
             "focus:outline-none focus:border-accent-indigo/50 focus:bg-white/[0.07] focus:shadow-[0_0_0_3px_rgba(129,140,248,0.1)]",
-            error && "border-red-500/50 focus:border-red-500/50 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.1)]",
-            className
+            error &&
+              "border-red-500/50 focus:border-red-500/50 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.1)]",
+            className,
           )}
           {...props}
         />
         {error && <p className="text-xs text-red-400">{error}</p>}
       </div>
     );
-  }
+  },
 );
 Input.displayName = "Input";
 
@@ -46,7 +50,10 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="space-y-1.5">
         {label && (
-          <label htmlFor={id} className="block text-sm font-medium text-foreground-muted">
+          <label
+            htmlFor={id}
+            className="block text-sm font-medium text-foreground-muted"
+          >
             {label}
           </label>
         )}
@@ -57,14 +64,15 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             "w-full px-3 py-2.5 rounded-[4px] bg-white/5 border border-white/10 text-foreground text-sm resize-none",
             "placeholder:text-foreground-muted/50 transition-all duration-200",
             "focus:outline-none focus:border-accent-indigo/50 focus:bg-white/[0.07] focus:shadow-[0_0_0_3px_rgba(129,140,248,0.1)]",
-            error && "border-red-500/50 focus:border-red-500/50 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.1)]",
-            className
+            error &&
+              "border-red-500/50 focus:border-red-500/50 focus:shadow-[0_0_0_3px_rgba(239,68,68,0.1)]",
+            className,
           )}
           {...props}
         />
         {error && <p className="text-xs text-red-400">{error}</p>}
       </div>
     );
-  }
+  },
 );
 Textarea.displayName = "Textarea";
