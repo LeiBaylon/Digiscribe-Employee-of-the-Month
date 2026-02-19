@@ -7,12 +7,12 @@ interface SkeletonProps {
 }
 
 export function Skeleton({ className }: SkeletonProps) {
-  return <div className={cn("rounded-[4px] skeleton-shimmer", className)} />;
+  return <div className={cn("rounded-sm skeleton-shimmer", className)} />;
 }
 
 export function CardSkeleton() {
   return (
-    <div className="rounded-[4px] bg-slate-900/40 backdrop-blur-xl border border-white/10 p-6 space-y-4">
+    <div className="rounded-sm bg-slate-900/40 backdrop-blur-xl border border-white/10 p-6 space-y-4">
       <div className="flex items-center gap-3">
         <Skeleton className="w-10 h-10 rounded-full" />
         <div className="space-y-2 flex-1">

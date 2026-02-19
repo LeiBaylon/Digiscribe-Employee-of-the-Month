@@ -115,7 +115,7 @@ export default function NominationsPage() {
   };
 
   return (
-    <div className="p-8 max-w-[1400px] mx-auto">
+    <div className="p-8 max-w-350 mx-auto">
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -177,7 +177,7 @@ export default function NominationsPage() {
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", bounce: 0.5, duration: 0.8 }}
                   >
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent-cyan via-accent-indigo to-accent-purple flex items-center justify-center mx-auto mb-6">
+                    <div className="w-16 h-16 rounded-full bg-linear-to-br from-accent-cyan via-accent-indigo to-accent-purple flex items-center justify-center mx-auto mb-6">
                       <Check className="w-8 h-8 text-white" />
                     </div>
                   </motion.div>
@@ -244,7 +244,7 @@ export default function NominationsPage() {
                   </div>
 
                   {/* Step content */}
-                  <div className="p-6 min-h-[320px]">
+                  <div className="p-6 min-h-80">
                     <AnimatePresence mode="wait">
                       {currentStep === 1 && (
                         <motion.div
@@ -267,15 +267,15 @@ export default function NominationsPage() {
                               placeholder="Search by name or department..."
                               value={searchQuery}
                               onChange={(e) => setSearchQuery(e.target.value)}
-                              className="w-full h-10 pl-10 pr-3 rounded-[4px] bg-white/5 border border-white/10 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:border-accent-indigo/50"
+                              className="w-full h-10 pl-10 pr-3 rounded-sm bg-white/5 border border-white/10 text-foreground text-sm placeholder:text-foreground-muted/50 focus:outline-none focus:border-accent-indigo/50"
                             />
                           </div>
-                          <div className="space-y-1 max-h-[240px] overflow-y-auto">
+                          <div className="space-y-1 max-h-60 overflow-y-auto">
                             {filteredEmployees.map((employee) => (
                               <button
                                 key={employee.id}
                                 onClick={() => setSelectedNominee(employee.id)}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-[4px] text-left transition-all duration-200 cursor-pointer ${
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-sm text-left transition-all duration-200 cursor-pointer ${
                                   selectedNominee === employee.id ?
                                     "bg-accent-indigo/10 border border-accent-indigo/30"
                                   : "hover:bg-white/5 border border-transparent"
@@ -318,7 +318,7 @@ export default function NominationsPage() {
                               <button
                                 key={cat.value}
                                 onClick={() => setSelectedCategory(cat.value)}
-                                className={`w-full flex items-center gap-4 px-4 py-3 rounded-[4px] text-left transition-all duration-200 border cursor-pointer bg-gradient-to-r ${cat.color} ${
+                                className={`w-full flex items-center gap-4 px-4 py-3 rounded-sm text-left transition-all duration-200 border cursor-pointer bg-linear-to-r ${cat.color} ${
                                   selectedCategory === cat.value ?
                                     "ring-1 ring-white/20"
                                   : ""
@@ -390,7 +390,7 @@ export default function NominationsPage() {
                             Please review your nomination before submitting.
                           </p>
                           <div className="space-y-4">
-                            <div className="flex items-center gap-3 p-4 rounded-[4px] bg-white/5 border border-white/10">
+                            <div className="flex items-center gap-3 p-4 rounded-sm bg-white/5 border border-white/10">
                               <Avatar
                                 name={selectedEmployee?.name || ""}
                                 size="lg"

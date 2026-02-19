@@ -25,7 +25,7 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
       <div
         ref={ref}
         className={cn(
-          "relative rounded-[4px] border border-white/10 noise-overlay overflow-hidden",
+          "relative rounded-sm border border-white/10 noise-overlay overflow-hidden",
           variant === "default" &&
             "bg-slate-900/40 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]",
           variant === "elevated" &&

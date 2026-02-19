@@ -49,7 +49,7 @@ export function Avatar({
   return (
     <div
       className={cn(
-        "relative inline-flex items-center justify-center rounded-full font-medium bg-gradient-to-br shrink-0",
+        "relative inline-flex items-center justify-center rounded-full font-medium bg-linear-to-br shrink-0",
         colorClass,
         sizeClasses[size],
         showRing &&

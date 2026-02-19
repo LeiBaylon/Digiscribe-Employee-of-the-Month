@@ -54,7 +54,7 @@ const CustomTooltip = ({
 }) => {
   if (!active || !payload) return null;
   return (
-    <div className="bg-layer-2 border border-white/10 rounded-[4px] px-3 py-2 shadow-xl">
+    <div className="bg-layer-2 border border-white/10 rounded-sm px-3 py-2 shadow-xl">
       <p className="text-xs font-medium text-foreground mb-1">{label}</p>
       {payload.map((entry, i) => (
         <p key={i} className="text-xs text-foreground-muted">
@@ -78,7 +78,7 @@ export default function AnalyticsPage() {
   const pieData = DepartmentPieData();
 
   return (
-    <div className="p-8 max-w-[1400px] mx-auto">
+    <div className="p-8 max-w-350 mx-auto">
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -165,7 +165,7 @@ export default function AnalyticsPage() {
                   +23% YoY
                 </div>
               </div>
-              <div className="h-[280px]">
+              <div className="h-70">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={analyticsData}>
                     <defs>
@@ -234,7 +234,7 @@ export default function AnalyticsPage() {
                   +34% YoY
                 </div>
               </div>
-              <div className="h-[280px]">
+              <div className="h-70">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={analyticsData}>
                     <defs>
@@ -302,7 +302,7 @@ export default function AnalyticsPage() {
                   Nominations by department (current month)
                 </p>
               </div>
-              <div className="h-[280px]">
+              <div className="h-70">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={pieData} layout="vertical">
                     <defs>
@@ -363,7 +363,7 @@ export default function AnalyticsPage() {
                   Share by department
                 </p>
               </div>
-              <div className="h-[200px]">
+              <div className="h-50">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie

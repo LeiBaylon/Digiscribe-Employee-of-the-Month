@@ -128,7 +128,7 @@ export default function LeaderboardPage() {
   };
 
   return (
-    <div className="p-8 max-w-[1400px] mx-auto">
+    <div className="p-8 max-w-350 mx-auto">
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ export default function LeaderboardPage() {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.05, duration: 0.3 }}
-            className={`px-6 py-4 grid grid-cols-12 gap-4 items-center hover:bg-white/[0.02] transition-colors ${
+            className={`px-6 py-4 grid grid-cols-12 gap-4 items-center hover:bg-white/2 transition-colors ${
               i < leaderboard.length - 1 ? "border-b border-white/5" : ""
             }`}
           >
@@ -225,7 +225,7 @@ export default function LeaderboardPage() {
                     initial={{ width: 0 }}
                     animate={{ width: `${entry.score}%` }}
                     transition={{ delay: i * 0.05 + 0.3, duration: 0.6 }}
-                    className="h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-indigo"
+                    className="h-full rounded-full bg-linear-to-r from-accent-cyan to-accent-indigo"
                   />
                 </div>
                 <span className="text-xs font-medium text-foreground">

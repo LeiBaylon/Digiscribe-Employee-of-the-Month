@@ -81,7 +81,7 @@ function StatCard({
             )}
           </div>
           <div
-            className={`w-10 h-10 rounded-[4px] flex items-center justify-center ${accentColor} transition-transform duration-300 group-hover:scale-110`}
+            className={`w-10 h-10 rounded-sm flex items-center justify-center ${accentColor} transition-transform duration-300 group-hover:scale-110`}
           >
             <Icon className="w-5 h-5 text-white" strokeWidth={1.5} />
           </div>
@@ -118,7 +118,7 @@ function NominationQueue() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="px-6 py-4 flex items-start gap-4 hover:bg-white/[0.02] transition-colors"
+              className="px-6 py-4 flex items-start gap-4 hover:bg-white/2 transition-colors"
             >
               <Avatar name={nomination.nomineeName} size="md" />
               <div className="flex-1 min-w-0">
@@ -178,7 +178,7 @@ function MiniLeaderboard() {
           {leaderboard.slice(0, 5).map((entry, i) => (
             <div
               key={entry.employee.id}
-              className="px-6 py-3 flex items-center gap-3 hover:bg-white/[0.02] transition-colors"
+              className="px-6 py-3 flex items-center gap-3 hover:bg-white/2 transition-colors"
             >
               <span
                 className={`w-6 text-center text-xs font-bold ${
@@ -223,7 +223,7 @@ function CurrentWinner() {
   return (
     <motion.div variants={item}>
       <GlassCard className="relative overflow-hidden" glow="gradient">
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/5 via-accent-indigo/5 to-accent-purple/5" />
+        <div className="absolute inset-0 bg-linear-to-br from-accent-cyan/5 via-accent-indigo/5 to-accent-purple/5" />
         <div className="relative z-10">
           <div className="flex items-center gap-2 mb-4">
             <Crown className="w-4 h-4 text-amber-400" />
@@ -285,7 +285,7 @@ function MiniChart() {
             </Button>
           </Link>
         </div>
-        <div className="h-[140px] -mx-2">
+        <div className="h-35 -mx-2">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={analyticsData}>
               <defs>
@@ -328,7 +328,7 @@ function MiniChart() {
 
 export default function DashboardPage() {
   return (
-    <div className="p-8 max-w-[1400px] mx-auto">
+    <div className="p-8 max-w-350 mx-auto">
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -354,28 +354,28 @@ export default function DashboardPage() {
           value={stats.totalNominations}
           change="+12% from last month"
           icon={Send}
-          accentColor="bg-gradient-to-br from-cyan-500 to-blue-500"
+          accentColor="bg-linear-to-br from-cyan-500 to-blue-500"
         />
         <StatCard
           label="Active Employees"
           value={stats.activeEmployees}
           change="+3 new this month"
           icon={Users}
-          accentColor="bg-gradient-to-br from-indigo-500 to-purple-500"
+          accentColor="bg-linear-to-br from-indigo-500 to-purple-500"
         />
         <StatCard
           label="Participation Rate"
           value={`${stats.participationRate}%`}
           change="+4% from last month"
           icon={Target}
-          accentColor="bg-gradient-to-br from-purple-500 to-pink-500"
+          accentColor="bg-linear-to-br from-purple-500 to-pink-500"
         />
         <StatCard
           label="Awards Given"
           value={stats.awardsGiven}
           change="+2 this month"
           icon={Award}
-          accentColor="bg-gradient-to-br from-amber-500 to-orange-500"
+          accentColor="bg-linear-to-br from-amber-500 to-orange-500"
         />
 
         <NominationQueue />

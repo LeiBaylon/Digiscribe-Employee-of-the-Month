@@ -22,7 +22,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-xs font-medium",
+        "inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-xs font-medium",
         variant === "default" &&
           "bg-white/5 text-foreground-muted border border-white/10",
         variant === "success" &&
@@ -54,7 +54,7 @@ export function CategoryBadge({ category }: { category: NominationCategory }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 px-2 py-0.5 rounded-[4px] text-xs font-medium border",
+        "inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-xs font-medium border",
         colors[category],
       )}
     >

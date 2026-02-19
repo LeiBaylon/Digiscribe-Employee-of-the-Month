@@ -30,7 +30,7 @@ function HallOfFameSVG() {
     <div className="w-full overflow-x-auto">
       <svg
         viewBox="0 0 1000 640"
-        className="w-full max-w-[1000px] mx-auto"
+        className="w-full max-w-250 mx-auto"
         style={{ minWidth: 600 }}
       >
         <defs>
@@ -256,7 +256,7 @@ function HallOfFameSVG() {
 
 export default function HallOfFamePage() {
   return (
-    <div className="p-8 max-w-[1400px] mx-auto">
+    <div className="p-8 max-w-350 mx-auto">
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
