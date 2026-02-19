@@ -1,0 +1,136 @@
+import {
+  Employee,
+  Nomination,
+  LeaderboardEntry,
+  MonthlyWinner,
+  AnalyticsData,
+} from "./types";
+
+export const employees: Employee[] = [
+  { id: "1", name: "Sarah Chen", role: "Senior Engineer", department: "Engineering", joinedDate: new Date("2022-03-15") },
+  { id: "2", name: "Marcus Johnson", role: "Product Manager", department: "Product", joinedDate: new Date("2021-07-01") },
+  { id: "3", name: "Aria Patel", role: "UX Designer", department: "Design", joinedDate: new Date("2023-01-10") },
+  { id: "4", name: "James Wilson", role: "DevOps Lead", department: "Engineering", joinedDate: new Date("2020-11-20") },
+  { id: "5", name: "Elena Rodriguez", role: "Data Scientist", department: "Analytics", joinedDate: new Date("2022-09-05") },
+  { id: "6", name: "David Kim", role: "Frontend Developer", department: "Engineering", joinedDate: new Date("2023-04-18") },
+  { id: "7", name: "Olivia Thompson", role: "Marketing Director", department: "Marketing", joinedDate: new Date("2021-02-28") },
+  { id: "8", name: "Raj Mehta", role: "Backend Engineer", department: "Engineering", joinedDate: new Date("2022-06-12") },
+  { id: "9", name: "Sophie Laurent", role: "Customer Success Lead", department: "Support", joinedDate: new Date("2021-12-01") },
+  { id: "10", name: "Alex Novak", role: "Security Engineer", department: "Engineering", joinedDate: new Date("2023-08-22") },
+  { id: "11", name: "Mia Chang", role: "HR Manager", department: "People", joinedDate: new Date("2020-05-14") },
+  { id: "12", name: "Carlos Reyes", role: "QA Engineer", department: "Engineering", joinedDate: new Date("2022-11-30") },
+];
+
+export const nominations: Nomination[] = [
+  {
+    id: "n1", nomineeId: "1", nomineeName: "Sarah Chen", nomineeRole: "Senior Engineer", nomineeDepartment: "Engineering",
+    nominatorId: "2", nominatorName: "Marcus Johnson", category: "innovation",
+    reason: "Led the migration to microservices architecture, reducing deployment time by 73%.",
+    impact: "Entire engineering team now ships features 3x faster. Customer-facing latency dropped from 800ms to 120ms.",
+    status: "approved", createdAt: new Date(Date.now() - 2 * 3600000), votes: 24,
+  },
+  {
+    id: "n2", nomineeId: "3", nomineeName: "Aria Patel", nomineeRole: "UX Designer", nomineeDepartment: "Design",
+    nominatorId: "6", nominatorName: "David Kim", category: "customer-excellence",
+    reason: "Redesigned the onboarding flow leading to a 45% increase in user activation.",
+    impact: "New user retention improved from 23% to 41% within the first month of launch.",
+    status: "pending", createdAt: new Date(Date.now() - 5 * 3600000), votes: 18,
+  },
+  {
+    id: "n3", nomineeId: "4", nomineeName: "James Wilson", nomineeRole: "DevOps Lead", nomineeDepartment: "Engineering",
+    nominatorId: "8", nominatorName: "Raj Mehta", category: "above-and-beyond",
+    reason: "Worked through the weekend to resolve a critical production incident affecting 50k users.",
+    impact: "System was restored within 4 hours. Implemented monitoring that has prevented 12 similar incidents since.",
+    status: "awarded", createdAt: new Date(Date.now() - 48 * 3600000), votes: 31,
+  },
+  {
+    id: "n4", nomineeId: "9", nomineeName: "Sophie Laurent", nomineeRole: "Customer Success Lead", nomineeDepartment: "Support",
+    nominatorId: "7", nominatorName: "Olivia Thompson", category: "leadership",
+    reason: "Built and mentored a team of 8 CSMs, reducing churn by 28% quarter-over-quarter.",
+    impact: "Customer NPS score rose from 32 to 67. Annual recurring revenue impact estimated at $2.1M.",
+    status: "approved", createdAt: new Date(Date.now() - 24 * 3600000), votes: 22,
+  },
+  {
+    id: "n5", nomineeId: "5", nomineeName: "Elena Rodriguez", nomineeRole: "Data Scientist", nomineeDepartment: "Analytics",
+    nominatorId: "11", nominatorName: "Mia Chang", category: "innovation",
+    reason: "Developed a predictive model for employee engagement that identified at-risk team members.",
+    impact: "Voluntary turnover decreased by 15% in departments using the model. Saved an estimated $340k in recruiting costs.",
+    status: "pending", createdAt: new Date(Date.now() - 8 * 3600000), votes: 15,
+  },
+  {
+    id: "n6", nomineeId: "6", nomineeName: "David Kim", nomineeRole: "Frontend Developer", nomineeDepartment: "Engineering",
+    nominatorId: "3", nominatorName: "Aria Patel", category: "teamwork",
+    reason: "Organized cross-functional design sprints that bridged the gap between engineering and design.",
+    impact: "Feature delivery cycle reduced by 40%. Design implementation accuracy improved from 78% to 96%.",
+    status: "pending", createdAt: new Date(Date.now() - 12 * 3600000), votes: 12,
+  },
+  {
+    id: "n7", nomineeId: "10", nomineeName: "Alex Novak", nomineeRole: "Security Engineer", nomineeDepartment: "Engineering",
+    nominatorId: "4", nominatorName: "James Wilson", category: "above-and-beyond",
+    reason: "Discovered and patched a critical vulnerability before it could be exploited.",
+    impact: "Prevented a potential data breach that could have affected 200k user records. Implemented automated scanning pipeline.",
+    status: "approved", createdAt: new Date(Date.now() - 72 * 3600000), votes: 28,
+  },
+];
+
+export const leaderboard: LeaderboardEntry[] = [
+  { rank: 1, employee: employees[0], nominations: 12, wins: 4, score: 96, trend: "up", previousRank: 3 },
+  { rank: 2, employee: employees[3], nominations: 10, wins: 3, score: 89, trend: "up", previousRank: 5 },
+  { rank: 3, employee: employees[8], nominations: 9, wins: 3, score: 85, trend: "stable", previousRank: 3 },
+  { rank: 4, employee: employees[2], nominations: 8, wins: 2, score: 78, trend: "up", previousRank: 7 },
+  { rank: 5, employee: employees[4], nominations: 7, wins: 2, score: 74, trend: "down", previousRank: 2 },
+  { rank: 6, employee: employees[9], nominations: 6, wins: 2, score: 71, trend: "up", previousRank: 9 },
+  { rank: 7, employee: employees[5], nominations: 6, wins: 1, score: 65, trend: "stable", previousRank: 7 },
+  { rank: 8, employee: employees[6], nominations: 5, wins: 1, score: 58, trend: "down", previousRank: 4 },
+  { rank: 9, employee: employees[7], nominations: 4, wins: 1, score: 52, trend: "up", previousRank: 11 },
+  { rank: 10, employee: employees[10], nominations: 3, wins: 0, score: 41, trend: "down", previousRank: 6 },
+];
+
+export const monthlyWinners: MonthlyWinner[] = [
+  { employee: employees[0], month: "January", year: 2026, category: "innovation", totalVotes: 47, quote: "Innovation is seeing what everybody has seen and thinking what nobody has thought." },
+  { employee: employees[3], month: "December", year: 2025, category: "above-and-beyond", totalVotes: 52, quote: "The only way to do great work is to love what you do." },
+  { employee: employees[8], month: "November", year: 2025, category: "leadership", totalVotes: 38, quote: "Leadership is not about being in charge. It's about taking care of those in your charge." },
+  { employee: employees[2], month: "October", year: 2025, category: "customer-excellence", totalVotes: 41 },
+  { employee: employees[4], month: "September", year: 2025, category: "innovation", totalVotes: 35 },
+  { employee: employees[9], month: "August", year: 2025, category: "above-and-beyond", totalVotes: 44, quote: "Security is not a product, but a process." },
+  { employee: employees[5], month: "July", year: 2025, category: "teamwork", totalVotes: 33 },
+  { employee: employees[6], month: "June", year: 2025, category: "leadership", totalVotes: 29 },
+  { employee: employees[7], month: "May", year: 2025, category: "innovation", totalVotes: 36 },
+  { employee: employees[1], month: "April", year: 2025, category: "leadership", totalVotes: 42, quote: "The best product decisions come from deep empathy with users." },
+  { employee: employees[10], month: "March", year: 2025, category: "teamwork", totalVotes: 31 },
+  { employee: employees[11], month: "February", year: 2025, category: "above-and-beyond", totalVotes: 27 },
+];
+
+export const analyticsData: AnalyticsData[] = [
+  { month: "Mar", nominations: 18, participationRate: 42, departments: { Engineering: 8, Product: 3, Design: 2, Analytics: 2, Marketing: 1, Support: 1, People: 1 } },
+  { month: "Apr", nominations: 23, participationRate: 48, departments: { Engineering: 10, Product: 4, Design: 3, Analytics: 2, Marketing: 2, Support: 1, People: 1 } },
+  { month: "May", nominations: 27, participationRate: 55, departments: { Engineering: 11, Product: 5, Design: 4, Analytics: 3, Marketing: 2, Support: 1, People: 1 } },
+  { month: "Jun", nominations: 22, participationRate: 51, departments: { Engineering: 9, Product: 4, Design: 3, Analytics: 2, Marketing: 2, Support: 1, People: 1 } },
+  { month: "Jul", nominations: 31, participationRate: 62, departments: { Engineering: 13, Product: 5, Design: 4, Analytics: 3, Marketing: 3, Support: 2, People: 1 } },
+  { month: "Aug", nominations: 29, participationRate: 58, departments: { Engineering: 12, Product: 5, Design: 3, Analytics: 3, Marketing: 3, Support: 2, People: 1 } },
+  { month: "Sep", nominations: 35, participationRate: 67, departments: { Engineering: 14, Product: 6, Design: 5, Analytics: 4, Marketing: 3, Support: 2, People: 1 } },
+  { month: "Oct", nominations: 38, participationRate: 71, departments: { Engineering: 15, Product: 7, Design: 5, Analytics: 4, Marketing: 3, Support: 2, People: 2 } },
+  { month: "Nov", nominations: 33, participationRate: 65, departments: { Engineering: 13, Product: 6, Design: 4, Analytics: 3, Marketing: 3, Support: 2, People: 2 } },
+  { month: "Dec", nominations: 41, participationRate: 74, departments: { Engineering: 16, Product: 7, Design: 6, Analytics: 4, Marketing: 4, Support: 2, People: 2 } },
+  { month: "Jan", nominations: 45, participationRate: 78, departments: { Engineering: 18, Product: 8, Design: 6, Analytics: 5, Marketing: 4, Support: 2, People: 2 } },
+  { month: "Feb", nominations: 42, participationRate: 76, departments: { Engineering: 17, Product: 7, Design: 5, Analytics: 5, Marketing: 4, Support: 2, People: 2 } },
+];
+
+export const departments = [
+  "Engineering",
+  "Product",
+  "Design",
+  "Analytics",
+  "Marketing",
+  "Support",
+  "People",
+];
+
+export const stats = {
+  totalNominations: 384,
+  activeEmployees: 127,
+  participationRate: 76,
+  awardsGiven: 24,
+  pendingReviews: 12,
+  avgVotesPerNomination: 18.3,
+};
