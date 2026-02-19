@@ -1,3 +1,13 @@
+export type UserRole = "admin" | "employee";
+
+export interface AppUser {
+  uid: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  createdAt: Date;
+}
+
 export interface Employee {
   id: string;
   name: string;
@@ -5,6 +15,8 @@ export interface Employee {
   department: string;
   avatar?: string;
   joinedDate: Date;
+  active: boolean;
+  email?: string;
 }
 
 export interface Nomination {
@@ -30,7 +42,7 @@ export type NominationCategory =
   | "customer-excellence"
   | "above-and-beyond";
 
-export type NominationStatus = "pending" | "approved" | "awarded" | "declined";
+export type NominationStatus = "pending" | "approved" | "awarded" | "rejected";
 
 export interface LeaderboardEntry {
   rank: number;
@@ -70,5 +82,5 @@ export const STATUS_LABELS: Record<NominationStatus, string> = {
   pending: "Pending Review",
   approved: "Approved",
   awarded: "Awarded",
-  declined: "Declined",
+  rejected: "Rejected",
 };

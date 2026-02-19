@@ -22,6 +22,8 @@ import type {
   AnalyticsData,
   NominationCategory,
   NominationStatus,
+  AppUser,
+  UserRole,
 } from "./types";
 
 // -- Collection references --
@@ -31,6 +33,7 @@ const leaderboardCol = () => collection(db, "leaderboard");
 const winnersCol = () => collection(db, "monthlyWinners");
 const analyticsCol = () => collection(db, "analytics");
 const statsDoc = () => doc(db, "meta", "stats");
+const usersCol = () => collection(db, "users");
 
 // -- Helpers --
 function toDate(val: Timestamp | Date | string): Date {
@@ -51,6 +54,8 @@ export async function getEmployees(): Promise<Employee[]> {
       department: data.department,
       avatar: data.avatar,
       joinedDate: toDate(data.joinedDate),
+      active: data.active ?? true,
+      email: data.email,
     };
   });
 }
@@ -113,6 +118,8 @@ export async function getLeaderboard(): Promise<LeaderboardEntry[]> {
         department: data.employee.department,
         avatar: data.employee.avatar,
         joinedDate: toDate(data.employee.joinedDate),
+        active: data.employee.active ?? true,
+        email: data.employee.email,
       },
       nominations: data.nominations,
       wins: data.wins,
@@ -137,6 +144,8 @@ export async function getMonthlyWinners(): Promise<MonthlyWinner[]> {
         department: data.employee.department,
         avatar: data.employee.avatar,
         joinedDate: toDate(data.employee.joinedDate),
+        active: data.employee.active ?? true,
+        email: data.employee.email,
       },
       month: data.month,
       year: data.year,
@@ -319,4 +328,136 @@ export async function seedFirestore() {
   batch.set(statsDoc(), stats);
 
   await batch.commit();
+}
+
+// -- Users (RBAC) --
+export async function getUserByUid(uid: string): Promise<AppUser | null> {
+  const snap = await getDoc(doc(db, "users", uid));
+  if (!snap.exists()) return null;
+  const data = snap.data();
+  return {
+    uid: snap.id,
+    name: data.name,
+    email: data.email,
+    role: data.role as UserRole,
+    createdAt: toDate(data.createdAt),
+  };
+}
+
+export async function createUserDoc(user: AppUser): Promise<void> {
+  const ref = doc(db, "users", user.uid);
+  await updateDoc(ref, {
+    uid: user.uid,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    createdAt: Timestamp.fromDate(user.createdAt),
+  }).catch(async () => {
+    // If doc doesn't exist yet, create it
+    const { setDoc } = await import("firebase/firestore");
+    await setDoc(ref, {
+      uid: user.uid,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      createdAt: Timestamp.fromDate(user.createdAt),
+    });
+  });
+}
+
+export async function getAllUsers(): Promise<AppUser[]> {
+  const snap = await getDocs(usersCol());
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      uid: d.id,
+      name: data.name,
+      email: data.email,
+      role: data.role as UserRole,
+      createdAt: toDate(data.createdAt),
+    };
+  });
+}
+
+// -- Employee CRUD --
+export async function createEmployee(
+  employee: Omit<Employee, "id">,
+): Promise<string> {
+  const docRef = await addDoc(employeesCol(), {
+    name: employee.name,
+    role: employee.role,
+    department: employee.department,
+    email: employee.email,
+    joinedDate: Timestamp.fromDate(employee.joinedDate),
+    active: employee.active,
+  });
+  return docRef.id;
+}
+
+export async function updateEmployee(
+  id: string,
+  data: Partial<Omit<Employee, "id">>,
+): Promise<void> {
+  const updateData: Record<string, unknown> = { ...data };
+  if (data.joinedDate) {
+    updateData.joinedDate = Timestamp.fromDate(data.joinedDate);
+  }
+  delete updateData.id;
+  await updateDoc(doc(db, "employees", id), updateData);
+}
+
+export async function deactivateEmployee(id: string): Promise<void> {
+  await updateDoc(doc(db, "employees", id), { active: false });
+}
+
+export async function deleteEmployee(id: string): Promise<void> {
+  await deleteDoc(doc(db, "employees", id));
+}
+
+export async function getActiveEmployees(): Promise<Employee[]> {
+  const q = query(employeesCol(), where("active", "==", true));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      name: data.name,
+      role: data.role,
+      department: data.department,
+      avatar: data.avatar,
+      joinedDate: toDate(data.joinedDate),
+      active: true,
+      email: data.email,
+    };
+  });
+}
+
+// -- Nomination queries --
+export async function getNominationsByStatus(
+  status: NominationStatus,
+): Promise<Nomination[]> {
+  const q = query(
+    nominationsCol(),
+    where("status", "==", status),
+    orderBy("createdAt", "desc"),
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => {
+    const data = d.data();
+    return {
+      id: d.id,
+      nomineeId: data.nomineeId,
+      nomineeName: data.nomineeName,
+      nomineeRole: data.nomineeRole,
+      nomineeDepartment: data.nomineeDepartment,
+      nominatorId: data.nominatorId,
+      nominatorName: data.nominatorName,
+      category: data.category as NominationCategory,
+      reason: data.reason,
+      impact: data.impact,
+      status: data.status as NominationStatus,
+      createdAt: toDate(data.createdAt),
+      votes: data.votes ?? 0,
+    };
+  });
 }

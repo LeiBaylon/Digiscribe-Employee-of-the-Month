@@ -2,19 +2,19 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/providers/auth-provider";
-import { LogIn, UserPlus, Loader2 } from "lucide-react";
+import { LogIn, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
-  const { signIn, signUp } = useAuth();
-  const [isSignUp, setIsSignUp] = useState(false);
+  const { signIn } = useAuth();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -24,10 +24,11 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      if (isSignUp) {
-        await signUp(email, password, displayName);
+      const appUser = await signIn(email, password);
+      if (appUser?.role === "admin") {
+        router.replace("/admin");
       } else {
-        await signIn(email, password);
+        router.replace("/");
       }
     } catch (err: unknown) {
       const raw =
@@ -89,26 +90,13 @@ export default function LoginPage() {
 
         <GlassCard variant="elevated" glow="gradient">
           <h2 className="text-lg font-semibold text-foreground mb-1">
-            {isSignUp ? "Create Account" : "Welcome Back"}
+            Welcome Back
           </h2>
           <p className="text-xs text-foreground-muted mb-6">
-            {isSignUp ?
-              "Sign up to start recognizing your colleagues."
-            : "Sign in to access the Employee of the Month portal."}
+            Sign in to access the Employee of the Month portal.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {isSignUp && (
-              <Input
-                id="displayName"
-                label="Full Name"
-                type="text"
-                placeholder="Jane Doe"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                required
-              />
-            )}
             <Input
               id="email"
               label="Email"
@@ -146,27 +134,10 @@ export default function LoginPage() {
             >
               {loading ?
                 <Loader2 className="w-4 h-4 animate-spin" />
-              : isSignUp ?
-                <UserPlus className="w-4 h-4" strokeWidth={1.5} />
               : <LogIn className="w-4 h-4" strokeWidth={1.5} />}
-              {isSignUp ? "Create Account" : "Sign In"}
+              Sign In
             </Button>
           </form>
-
-          <div className="mt-6 pt-4 border-t border-white/5 text-center">
-            <button
-              type="button"
-              onClick={() => {
-                setIsSignUp(!isSignUp);
-                setError("");
-              }}
-              className="text-xs text-foreground-muted hover:text-foreground transition-colors cursor-pointer"
-            >
-              {isSignUp ?
-                "Already have an account? Sign in"
-              : "Don't have an account? Sign up"}
-            </button>
-          </div>
         </GlassCard>
       </motion.div>
     </div>

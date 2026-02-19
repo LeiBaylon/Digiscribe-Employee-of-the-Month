@@ -7,22 +7,41 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
+  const { user, appUser, loading, roleLoading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
+  const isFullyLoaded = !loading && !roleLoading;
+
   useEffect(() => {
-    if (!loading && !user && pathname !== "/login") {
+    if (!isFullyLoaded) return;
+
+    // Not authenticated -> redirect to login
+    if (!user && pathname !== "/login") {
       router.replace("/login");
+      return;
     }
-    if (!loading && user && pathname === "/login") {
+
+    // Authenticated on login page -> redirect based on role
+    if (user && pathname === "/login") {
+      if (appUser?.role === "admin") {
+        router.replace("/admin");
+      } else {
+        router.replace("/");
+      }
+      return;
+    }
+
+    // Employee trying to access admin routes -> redirect to employee dashboard
+    if (user && appUser?.role === "employee" && pathname.startsWith("/admin")) {
       router.replace("/");
+      return;
     }
-  }, [user, loading, pathname, router]);
+  }, [user, appUser, isFullyLoaded, pathname, router]);
 
   // Loading state
-  if (loading) {
+  if (!isFullyLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-layer-0">
         <div className="flex flex-col items-center gap-4">

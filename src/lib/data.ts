@@ -13,6 +13,7 @@ export const employees: Employee[] = [
     role: "Senior Engineer",
     department: "Engineering",
     joinedDate: new Date("2022-03-15"),
+    active: true,
   },
   {
     id: "2",
@@ -20,6 +21,7 @@ export const employees: Employee[] = [
     role: "Product Manager",
     department: "Product",
     joinedDate: new Date("2021-07-01"),
+    active: true,
   },
   {
     id: "3",
@@ -27,6 +29,7 @@ export const employees: Employee[] = [
     role: "UX Designer",
     department: "Design",
     joinedDate: new Date("2023-01-10"),
+    active: true,
   },
   {
     id: "4",
@@ -34,6 +37,7 @@ export const employees: Employee[] = [
     role: "DevOps Lead",
     department: "Engineering",
     joinedDate: new Date("2020-11-20"),
+    active: true,
   },
   {
     id: "5",
@@ -41,6 +45,7 @@ export const employees: Employee[] = [
     role: "Data Scientist",
     department: "Analytics",
     joinedDate: new Date("2022-09-05"),
+    active: true,
   },
   {
     id: "6",
@@ -48,6 +53,7 @@ export const employees: Employee[] = [
     role: "Frontend Developer",
     department: "Engineering",
     joinedDate: new Date("2023-04-18"),
+    active: true,
   },
   {
     id: "7",
@@ -55,6 +61,7 @@ export const employees: Employee[] = [
     role: "Marketing Director",
     department: "Marketing",
     joinedDate: new Date("2021-02-28"),
+    active: true,
   },
   {
     id: "8",
@@ -62,6 +69,7 @@ export const employees: Employee[] = [
     role: "Backend Engineer",
     department: "Engineering",
     joinedDate: new Date("2022-06-12"),
+    active: true,
   },
   {
     id: "9",
@@ -69,6 +77,7 @@ export const employees: Employee[] = [
     role: "Customer Success Lead",
     department: "Support",
     joinedDate: new Date("2021-12-01"),
+    active: true,
   },
   {
     id: "10",
@@ -76,6 +85,7 @@ export const employees: Employee[] = [
     role: "Security Engineer",
     department: "Engineering",
     joinedDate: new Date("2023-08-22"),
+    active: true,
   },
   {
     id: "11",
@@ -83,6 +93,7 @@ export const employees: Employee[] = [
     role: "HR Manager",
     department: "People",
     joinedDate: new Date("2020-05-14"),
+    active: true,
   },
   {
     id: "12",
@@ -90,6 +101,7 @@ export const employees: Employee[] = [
     role: "QA Engineer",
     department: "Engineering",
     joinedDate: new Date("2022-11-30"),
+    active: true,
   },
 ];
 

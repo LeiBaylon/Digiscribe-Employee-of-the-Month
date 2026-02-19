@@ -11,19 +11,28 @@ import {
   Award,
   Send,
   ChevronLeft,
-  ChevronRight,
   LogOut,
+  Users,
+  ClipboardCheck,
+  Database,
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/providers/auth-provider";
 
-const navItems = [
+const employeeNavItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/nominations", label: "Nominate", icon: Send },
   { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
   { href: "/hall-of-fame", label: "Hall of Fame", icon: Award },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+];
+
+const adminNavItems = [
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/employees", label: "Employees", icon: Users },
+  { href: "/admin/nominations", label: "Nominations", icon: ClipboardCheck },
+  { href: "/admin/seed", label: "Seed Data", icon: Database },
 ];
 
 interface SidebarProps {
@@ -33,12 +42,14 @@ interface SidebarProps {
 
 export function Sidebar({ collapsed, onToggle }: SidebarProps) {
   const pathname = usePathname();
-  const { user, signOut } = useAuth();
+  const { user, appUser, signOut } = useAuth();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
+  const isAdmin = appUser?.role === "admin";
   const displayName = user?.displayName || user?.email?.split("@")[0] || "User";
   const userEmail = user?.email || "";
   const initials = getInitials(displayName);
+  const homeHref = isAdmin ? "/admin" : "/";
 
   return (
     <>
@@ -135,7 +146,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
               transition={{ duration: 0.2 }}
               className="flex items-center justify-between flex-1"
             >
-              <Link href="/">
+              <Link href={homeHref}>
                 <Image
                   src="/logo.png"
                   alt="Digiscribe"
@@ -158,11 +169,89 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-4 px-2 space-y-1">
-        {navItems.map((item) => {
+      <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
+        {/* Admin section */}
+        {isAdmin && (
+          <>
+            <AnimatePresence>
+              {!collapsed && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="px-3 pt-1 pb-2 text-[10px] font-semibold text-foreground-muted uppercase tracking-widest"
+                >
+                  Admin
+                </motion.p>
+              )}
+            </AnimatePresence>
+            {adminNavItems.map((item) => {
+              const isActive = pathname === item.href;
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm font-medium transition-all duration-200 group relative",
+                    isActive
+                      ? "bg-white/10 text-foreground"
+                      : "text-foreground-muted hover:text-foreground hover:bg-white/5",
+                  )}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="sidebar-active"
+                      className="absolute inset-0 rounded-sm bg-white/10 border border-white/10"
+                      transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                    />
+                  )}
+                  <Icon
+                    className={cn(
+                      "w-4.5 h-4.5 shrink-0 relative z-10",
+                      isActive && "text-accent-cyan",
+                    )}
+                    strokeWidth={1.5}
+                  />
+                  <AnimatePresence>
+                    {!collapsed && (
+                      <motion.span
+                        initial={{ opacity: 0, width: 0 }}
+                        animate={{ opacity: 1, width: "auto" }}
+                        exit={{ opacity: 0, width: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="relative z-10 overflow-hidden whitespace-nowrap"
+                      >
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </Link>
+              );
+            })}
+
+            {/* Divider between admin and employee sections */}
+            <div className="my-3 mx-3 border-t border-white/5" />
+
+            <AnimatePresence>
+              {!collapsed && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="px-3 pt-1 pb-2 text-[10px] font-semibold text-foreground-muted uppercase tracking-widest"
+                >
+                  Employee Views
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </>
+        )}
+
+        {/* Employee section (visible to both admin and employees) */}
+        {employeeNavItems.map((item) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
-
           return (
             <Link
               key={item.href}

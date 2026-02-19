@@ -68,7 +68,7 @@ export function StatusBadge({ status }: { status: NominationStatus }) {
     pending: "warning",
     approved: "success",
     awarded: "gold",
-    declined: "danger",
+    rejected: "danger",
   };
 
   return <Badge variant={variants[status]}>{STATUS_LABELS[status]}</Badge>;

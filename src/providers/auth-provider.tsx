@@ -10,63 +10,119 @@ import {
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
-  updateProfile,
   type User,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { getUserByUid } from "@/lib/firestore";
+import type { AppUser } from "@/lib/types";
 
 interface AuthContextType {
   user: User | null;
+  appUser: AppUser | null;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (
-    email: string,
-    password: string,
-    displayName: string,
-  ) => Promise<void>;
+  roleLoading: boolean;
+  signIn: (email: string, password: string) => Promise<AppUser | null>;
   signOut: () => Promise<void>;
+  createEmployeeAccount: (data: {
+    email: string;
+    password: string;
+    displayName: string;
+    department: string;
+    jobTitle: string;
+  }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  appUser: null,
   loading: true,
-  signIn: async () => {},
-  signUp: async () => {},
+  roleLoading: true,
+  signIn: async () => null,
   signOut: async () => {},
+  createEmployeeAccount: async () => {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [appUser, setAppUser] = useState<AppUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [roleLoading, setRoleLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (u) => {
+    const unsubscribe = onAuthStateChanged(auth, async (u) => {
       setUser(u);
       setLoading(false);
+
+      if (u) {
+        setRoleLoading(true);
+        const userDoc = await getUserByUid(u.uid);
+        setAppUser(userDoc);
+        setRoleLoading(false);
+      } else {
+        setAppUser(null);
+        setRoleLoading(false);
+      }
     });
     return unsubscribe;
   }, []);
 
-  const signIn = useCallback(async (email: string, password: string) => {
-    await signInWithEmailAndPassword(auth, email, password);
-  }, []);
-
-  const signUp = useCallback(
-    async (email: string, password: string, displayName: string) => {
-      const cred = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(cred.user, { displayName });
+  const signIn = useCallback(
+    async (email: string, password: string): Promise<AppUser | null> => {
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      const userDoc = await getUserByUid(cred.user.uid);
+      setAppUser(userDoc);
+      return userDoc;
     },
     [],
   );
 
   const signOut = useCallback(async () => {
     await firebaseSignOut(auth);
+    setAppUser(null);
   }, []);
 
+  const createEmployeeAccount = useCallback(
+    async (data: {
+      email: string;
+      password: string;
+      displayName: string;
+      department: string;
+      jobTitle: string;
+    }) => {
+      const currentUser = auth.currentUser;
+      if (!currentUser) throw new Error("Not authenticated");
+
+      const idToken = await currentUser.getIdToken();
+      const res = await fetch("/api/admin/create-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.error || "Failed to create employee account");
+      }
+    },
+    [],
+  );
+
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        appUser,
+        loading,
+        roleLoading,
+        signIn,
+        signOut,
+        createEmployeeAccount,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
